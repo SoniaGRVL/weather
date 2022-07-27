@@ -5,7 +5,7 @@ function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState('');
 
-  const urlAPI = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&lang=fr&appid=3d930166c15e7509712fe8ca8b1f13a9`;
+  const urlAPI = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=3d930166c15e7509712fe8ca8b1f13a9`;
 
   const searchLocation = (e) => {
     if (e.key === 'Enter') {
@@ -19,6 +19,7 @@ function App() {
 
   return (
     <div className="App">
+      <div className="container">
       <div className="search">
         <input 
         value={location} 
@@ -27,28 +28,38 @@ function App() {
         placeholder='Enter Location' 
         type="text" />
       </div>
-      <div className="container">
-        <div className="top">
-          <div className="location">
-            <p>{data.name}</p>
+        <div className="card">
+        <div className="cardInner"></div>
+          <div className="left">
+            <div className="location">
+              {data.name ? <h2>{data.name}</h2> : <h2>N/A</h2>}
+            </div>
+            <div className="description">
+              {data.weather ? <p>{data.weather[0].main}</p> : <p>-</p>}
+            </div>
           </div>
-          <div className="temp">
-            {data.main ? <h1>{data.main.temp}<span>°C</span></h1> : null}
+          <div className="right">
+            <div className="temp">
+              {data.main ? <div className="tempContent"><p className="tempVal">{Math.round(data.main.temp)}</p><p className="tempDeg">°C</p></div> : <div className="tempContent"><p className="tempVal">-</p><p className="tempDeg">°C</p></div>}
+            </div>
+            <div className="minMax">
+              {data.main ? <p>{Math.round(data.main.temp_min)}° / {Math.round(data.main.temp_max)}°</p> : <p>-° / -°</p>}
+            </div>
           </div>
-          <div className="description">
-            {data.weather ? <p>{data.weather[0].description}</p> : null}
-          </div>
-        </div>
         <div className="bottom">
           <div className="feels">
-            {data.main ? <p>{data.main.feels_like}°C</p> : null}
+            <p className="bottomTitle">Ressentie</p>
+            {data.main ? <p>{Math.round(data.main.feels_like)}°</p> : <p>-°</p>}
           </div>
           <div className="humidity">
-            {data.main ? <p>{data.main.humidity}%</p> : null}
+            <p className="bottomTitle">Humidité</p>
+            {data.main ? <p>{data.main.humidity}%</p> : <p>-%</p>}
           </div>
           <div className="wind">
-            {data.wind ? <p>{data.wind.speed}MPH</p> : null}
+          <p className="bottomTitle">Pression</p>
+            {data.main ? <p>{data.main.pressure}mbar</p> : <p>-mbar</p>}
           </div>
+        </div>
         </div>
       </div>
     </div>
