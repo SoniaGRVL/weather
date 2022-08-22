@@ -48,11 +48,11 @@ function App() {
           </div>
         <div className="bottom">
           <div className="feels">
-            <p className="bottomTitle">Ressentie</p>
+            <p className="bottomTitle">Feel Like</p>
             {data.main ? <p>{Math.round(data.main.feels_like)}°</p> : <p>-°</p>}
           </div>
           <div className="humidity">
-            <p className="bottomTitle">Humidité</p>
+            <p className="bottomTitle">Humidity</p>
             {data.main ? <p>{data.main.humidity}%</p> : <p>-%</p>}
           </div>
           <div className="wind">
